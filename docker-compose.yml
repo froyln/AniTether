@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-anitether}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-anitether}
+      POSTGRES_DB: ${POSTGRES_DB:-anitether}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

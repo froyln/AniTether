@@ -1,0 +1,114 @@
+/* Cards */
+
+.entry-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.entry-cover {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  width: 100%;
+}
+
+.entry-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  flex: 1;
+}
+
+.entry-title {
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+  font-weight: 600;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.entry-title:hover {
+  color: var(--accent);
+}
+
+.entry-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  margin-top: auto;
+}
+
+.bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.bar > div {
+  height: 100%;
+  background: var(--accent);
+}
+
+.entry-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.entry-actions button {
+  white-space: nowrap;
+  padding-inline: 0.55rem;
+}
+
+.entry-actions .primary {
+  flex: 1;
+}
+
+.status-tag {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--tag, #555);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
+}
+
+.status-Watching {
+  --tag: #2f9e5b;
+}
+
+.status-Rewatching {
+  --tag: #2b8a8a;
+}
+
+.status-Completed {
+  --tag: #5b4be0;
+}
+
+.status-PlanToWatch {
+  --tag: #5f6675;
+}
+
+.status-OnHold {
+  --tag: #c7851a;
+}
+
+.status-Dropped {
+  --tag: #c0393e;
+}

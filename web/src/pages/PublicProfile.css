@@ -1,0 +1,58 @@
+.profile-preview-note {
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.public-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.public-profile-header h1 { margin: 0 0 0.35rem; }
+.public-profile-header p { margin: 0; color: var(--text-muted); white-space: pre-wrap; }
+
+.public-profile-avatar {
+  position: relative;
+  flex: 0 0 5rem;
+  width: 5rem;
+  height: 5rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: 2rem;
+}
+
+.public-profile-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.public-profile-tabs {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.public-profile-tabs button { white-space: nowrap; border-radius: 999px; background: var(--surface); color: var(--text-muted); }
+.public-profile-tabs button.active { background: var(--accent); color: var(--accent-text); }
+.public-profile-tabs span { margin-left: 0.25rem; opacity: 0.75; }
+
+.public-profile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.8rem; }
+.public-list-card { display: flex; min-width: 0; gap: 0.8rem; padding: 0.65rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.public-list-cover { flex: 0 0 64px; height: 92px; overflow: hidden; border-radius: var(--radius-sm); background: var(--surface-2); }
+.public-list-cover img { width: 100%; height: 100%; object-fit: cover; }
+.public-list-cover span { display: grid; height: 100%; place-items: center; padding: 0.25rem; color: var(--text-muted); font-size: 0.75rem; text-align: center; }
+.public-list-details { display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; min-width: 0; font-size: 0.88rem; }
+.public-list-details a { font-weight: 600; }
+.public-list-details span { color: var(--text-muted); }
+
+@media (max-width: 480px) {
+  .public-profile-header { align-items: flex-start; }
+  .public-profile-avatar { flex-basis: 3.75rem; width: 3.75rem; height: 3.75rem; font-size: 1.5rem; }
+}

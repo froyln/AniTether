@@ -1,0 +1,25 @@
+# Secrets
+.env
+.env.*
+!.env.example
+secrets/
+
+# AI / agent tooling (kept in the author's private working tree, never published)
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+CLAUDE.local.md.example
+AGENTS.md
+PLAN.md
+.mcp.json.example
+
+# .NET
+bin/
+obj/
+
+# Node
+node_modules/
+web/dist/
+
+# Self-hosting
+backups/

@@ -1,0 +1,50 @@
+.anime-watch {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.watch-head h1 {
+  font-size: 1.25rem;
+  margin: 0.25rem 0 0;
+}
+
+.watch-player {
+  padding: 0;
+  overflow: hidden;
+}
+
+.watch-iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.watch-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Left: playback + progress. Right: leave / report. */
+.watch-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.watch-controls .report {
+  color: var(--text-muted);
+}
+
+.watch-controls .stepper {
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+/* .source-buttons / .source-language-group live in index.css — shared with AnimeDetail
+   and MyList. */

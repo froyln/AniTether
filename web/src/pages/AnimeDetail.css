@@ -1,0 +1,277 @@
+.anime-detail {
+  --cover-w: 200px;
+}
+
+/* banner bleeds to the page edges behind the header */
+.hero {
+  height: 260px;
+  margin: -1.5rem calc(50% - 50vw) 0;
+  background: linear-gradient(135deg, var(--accent), var(--surface-2)) center / cover;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0.1), var(--bg));
+}
+
+.detail-head {
+  position: relative;
+  display: flex;
+  gap: 1.5rem;
+  margin-top: -120px;
+}
+
+.detail-cover {
+  width: var(--cover-w);
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+  background: var(--surface-2);
+}
+
+.detail-title {
+  align-self: flex-end;
+  min-width: 0;
+}
+
+.detail-title h1 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.romaji {
+  margin: 0 0 0.75rem;
+}
+
+.meta-chips,
+.genre-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.meta-chip {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.genre-links a {
+  font-size: 0.85rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.detail-body {
+  display: grid;
+  grid-template-columns: var(--cover-w) 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  align-items: start;
+}
+
+.action-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1rem;
+  position: sticky;
+  top: 4.5rem;
+}
+
+.action-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.action-panel select {
+  color: var(--text);
+}
+
+button.big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.65rem;
+  font-weight: 600;
+}
+
+button.big small {
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.stepper {
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+.action-panel .remove {
+  align-self: center;
+  font-size: 0.85rem;
+  padding-bottom: 0;
+}
+
+.detail-main {
+  min-width: 0;
+}
+
+.detail-main section {
+  margin-bottom: 2rem;
+}
+
+.description {
+  white-space: pre-line;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.description.clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.range-tabs {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+  scrollbar-width: thin;
+}
+
+.range-tabs button {
+  white-space: nowrap;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.range-tabs button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.episode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
+  gap: 0.35rem;
+}
+
+.episode-grid button {
+  padding: 0.45rem 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.episode-grid button.watched {
+  opacity: 0.45;
+}
+
+.episode-grid button.next {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.episode-grid button.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  opacity: 1;
+}
+
+.episode-grid button.unaired {
+  opacity: 0.35;
+  border-style: dashed;
+}
+
+.coming-soon h2 {
+  margin-top: 0;
+}
+
+.episode-panel {
+  margin-top: 1rem;
+}
+
+.episode-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.episode-panel-head h3 {
+  margin: 0;
+}
+
+/* Watch on / Download options / link form, each its own block with a divider. */
+.panel-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.panel-section h4 {
+  margin: 0 0 0.6rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.panel-section p.small {
+  margin: 0.6rem 0 0;
+  font-size: 0.8rem;
+}
+
+/* .source-buttons / .source-language-group live in index.css — shared with AnimeWatch
+   and EntryDialog. */
+
+@media (max-width: 760px) {
+  .anime-detail {
+    --cover-w: 120px;
+  }
+
+  .hero {
+    height: 180px;
+  }
+
+  .detail-head {
+    margin-top: -70px;
+    gap: 1rem;
+  }
+
+  .detail-title h1 {
+    font-size: 1.4rem;
+  }
+
+  .detail-body {
+    grid-template-columns: 1fr;
+  }
+
+  .action-panel {
+    position: static;
+  }
+}

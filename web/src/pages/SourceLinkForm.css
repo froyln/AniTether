@@ -1,0 +1,26 @@
+.source-link {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.source-link summary {
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.source-link p {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+}
+
+.link-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.link-form input {
+  flex: 1;
+  min-width: 12rem;
+}

@@ -1,0 +1,48 @@
+.home-row {
+  margin-bottom: 2.25rem;
+}
+
+.home-row header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.home-row h2 {
+  margin: 0;
+}
+
+.row-scroller {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 160px;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+}
+
+.row-scroller > * {
+  scroll-snap-align: start;
+}
+
+.skeleton {
+  border-radius: var(--radius);
+  animation: pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  to {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 640px) {
+  .row-scroller {
+    grid-auto-columns: 130px;
+    gap: 0.6rem;
+  }
+}

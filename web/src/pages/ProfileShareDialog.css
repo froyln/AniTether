@@ -1,0 +1,17 @@
+.profile-share-dialog {
+  width: min(520px, calc(100vw - 2rem));
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.profile-share-dialog::backdrop { background: rgb(0 0 0 / 0.6); }
+.profile-share-dialog header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.profile-share-dialog h2 { margin: 0 0 0.25rem; }
+.profile-share-dialog .close { border: 0; background: transparent; color: var(--text-muted); }
+.profile-share-dialog label { display: grid; gap: 0.35rem; margin: 0.8rem 0; }
+.profile-share-dialog .profile-visibility { display: flex; align-items: center; }
+.profile-share-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1rem; }

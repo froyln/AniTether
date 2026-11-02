@@ -1,0 +1,151 @@
+.list-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.mylist-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.mylist-header h1 { margin: 0; }
+
+.tabs {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs button {
+  white-space: nowrap;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+.tabs button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.tabs .count {
+  opacity: 0.7;
+  font-size: 0.85em;
+  margin-left: 0.2rem;
+}
+
+.list-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.list-controls input {
+  width: 12rem;
+}
+
+/* Edit dialog */
+
+.entry-dialog {
+  width: min(560px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.entry-dialog::backdrop {
+  background: rgb(0 0 0 / 0.6);
+}
+
+.entry-dialog header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.entry-dialog header img {
+  width: 64px;
+  border-radius: var(--radius-sm);
+}
+
+.entry-dialog header div {
+  flex: 1;
+}
+
+.entry-dialog h2 {
+  margin-bottom: 0.3rem;
+}
+
+.entry-dialog h3 {
+  font-size: 0.95rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.entry-dialog .close {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+}
+
+.dialog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.entry-dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.entry-dialog label > select,
+.entry-dialog label > textarea {
+  color: var(--text);
+}
+
+.progress-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.progress-edit input {
+  width: 4.5rem;
+  color: var(--text);
+}
+
+.notes {
+  margin-top: 0.75rem;
+}
+
+.notes textarea {
+  resize: vertical;
+}
+
+/* .source-buttons / .source-language-group live in index.css — shared with AnimeDetail
+   and AnimeWatch. */
+
+.entry-dialog footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .list-controls,
+  .list-controls input {
+    width: 100%;
+  }
+
+  .list-controls input {
+    flex: 1;
+  }
+}

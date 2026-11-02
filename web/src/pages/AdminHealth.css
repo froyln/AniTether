@@ -1,0 +1,107 @@
+.health-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.health-source {
+  margin-bottom: 1rem;
+}
+
+.health-source-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.health-source-head h2 {
+  margin: 0;
+}
+
+.health-source-head button {
+  margin-left: auto;
+}
+
+.health-source-head h3 {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.95rem;
+}
+
+.badge-ok,
+.badge-broken {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--radius-sm);
+  vertical-align: middle;
+}
+
+.badge-ok {
+  background: color-mix(in srgb, var(--ok) 18%, transparent);
+  color: var(--ok);
+}
+
+.badge-broken {
+  background: color-mix(in srgb, var(--danger) 18%, transparent);
+  color: var(--danger);
+}
+
+.health-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.health-table td {
+  padding: 0.4rem 0.5rem 0.4rem 0;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+  font-size: 0.92rem;
+}
+
+.health-table td:first-child {
+  width: 7.5rem;
+  color: var(--text-muted);
+}
+
+.health-table td:nth-child(2) {
+  width: 8.5rem;
+  white-space: nowrap;
+}
+
+.health-dot {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  background: var(--text-muted);
+}
+
+.health-dot.health-ok {
+  background: #46c464;
+}
+
+.health-dot.health-broken {
+  background: var(--danger);
+}
+
+.health-dot.health-unknown {
+  background: #c9a227;
+}
+
+.health-hint {
+  color: var(--accent);
+  margin-top: 0.15rem;
+}
+
+.health-report-row {
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.92rem;
+}

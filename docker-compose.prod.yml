@@ -1,0 +1,111 @@
+# Self-hosted production stack. Guide: docs/self-hosting.md
+#   cp deploy/env.example .env   # then fill it in
+#   docker compose -f docker-compose.prod.yml up -d --build
+#   docker compose -f docker-compose.prod.yml --profile tunnel up -d   # + Cloudflare Tunnel
+
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      # Superuser: used only by the init script and scripts/restore.sh (inside this
+      # container). Every service connects with its own least-privilege role instead.
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-anitether}
+      OWNER_DB_PASSWORD: ${OWNER_DB_PASSWORD:?set OWNER_DB_PASSWORD in .env}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?set APP_DB_PASSWORD in .env}
+      BACKUP_DB_PASSWORD: ${BACKUP_DB_PASSWORD:?set BACKUP_DB_PASSWORD in .env}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./deploy/postgres:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    # No published port: only the containers on this network can reach Postgres.
+    networks: [anitether]
+
+  # One-shot: applies EF migrations as anitether_owner (not a superuser), then exits.
+  # The API starts after.
+  migrate:
+    build: .
+    image: anitether:latest
+    restart: "no"
+    environment:
+      ConnectionStrings__Default: Host=db;Database=${POSTGRES_DB:-anitether};Username=anitether_owner;Password=${OWNER_DB_PASSWORD}
+      Database__MigrateAndExit: "true"
+    depends_on:
+      db: { condition: service_healthy }
+    networks: [anitether]
+
+  api:
+    build: .
+    image: anitether:latest
+    restart: unless-stopped
+    environment:
+      ConnectionStrings__Default: Host=db;Database=${POSTGRES_DB:-anitether};Username=anitether_app;Password=${APP_DB_PASSWORD}
+      Bootstrap__AdminEmail: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      Bootstrap__AdminPassword: ${BOOTSTRAP_ADMIN_PASSWORD:-}
+      ForwardedHeaders__KnownNetworks: ${TRUSTED_PROXY_NETWORKS:-172.28.0.10/32}
+      ForwardedHeaders__ClientIpHeader: ${CLIENT_IP_HEADER:-X-Forwarded-For}
+      HealthChecks__Enabled: ${HEALTH_CHECKS_ENABLED:-true}
+      Smtp__Host: ${SMTP_HOST:-}
+      Smtp__Port: ${SMTP_PORT:-587}
+      Smtp__User: ${SMTP_USER:-}
+      Smtp__Password: ${SMTP_PASSWORD:-}
+      Smtp__From: ${SMTP_FROM:-}
+    volumes:
+      - dp-keys:/keys
+    ports:
+      # Loopback only by default: reach it through the tunnel or a reverse proxy on this
+      # host. Set API_BIND=0.0.0.0 to expose it on the LAN.
+      - ${API_BIND:-127.0.0.1}:${API_PORT:-8080}:8080
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    networks: [anitether]
+
+  backup:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-anitether}
+      PGUSER: anitether_backup
+      PGPASSWORD: ${BACKUP_DB_PASSWORD}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+    entrypoint: ["/bin/sh", "/backup.sh"]
+    volumes:
+      - ./deploy/backup.sh:/backup.sh:ro
+      - ${BACKUP_DIR:-./backups}:/backups
+    depends_on:
+      # Not just db: the first dump runs immediately and would capture an empty schema.
+      migrate: { condition: service_completed_successfully }
+    networks: [anitether]
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    profiles: [tunnel]
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
+    depends_on: [api]
+    networks:
+      # Fixed address: it's the one peer the API trusts to report the client's IP.
+      anitether: { ipv4_address: 172.28.0.10 }
+
+networks:
+  anitether:
+    ipam:
+      config:
+        # Change together with cloudflared's ipv4_address and TRUSTED_PROXY_NETWORKS if it
+        # collides with an existing network.
+        - subnet: 172.28.0.0/24
+          # Dynamic addresses come from .128-.255 only, so no container can ever be
+          # handed cloudflared's fixed .10 (the one trusted proxy address).
+          ip_range: 172.28.0.128/25
+
+volumes:
+  db-data:
+  dp-keys:

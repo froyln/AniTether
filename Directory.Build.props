@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- CachyOS dotnet package reports RID "arch-x64", which the SDK's package-pruning
+         step doesn't recognize, breaking restore. See NETSDK1226. -->
+    <AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
+  </PropertyGroup>
+</Project>

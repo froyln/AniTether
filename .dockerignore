@@ -1,0 +1,11 @@
+**/bin
+**/obj
+**/node_modules
+web/dist
+.git
+.claude
+.env
+.env.*
+secrets
+backups
+api.Tests

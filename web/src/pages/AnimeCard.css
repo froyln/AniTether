@@ -1,0 +1,76 @@
+.anime-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.anime-card .cover {
+  border-radius: var(--radius);
+}
+
+.anime-card-title {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.quick-add,
+.in-list {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}
+
+.quick-add {
+  background: rgb(0 0 0 / 0.7);
+  border-color: transparent;
+  color: #fff;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.anime-card:hover .quick-add,
+.quick-add:focus-visible {
+  opacity: 1;
+}
+
+.quick-add:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.in-list {
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: 0.9rem;
+}
+
+/* no hover on touch screens: always show quick add */
+@media (hover: none) {
+  .quick-add {
+    opacity: 1;
+  }
+}
+
+/* Announced, not aired: top-left, clear of the format badge and the add button. */
+.badge-soon {
+  top: 0.4rem;
+  bottom: auto;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}

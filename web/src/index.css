@@ -1,0 +1,488 @@
+/* Palettes: data-theme = default | crimson | slate, data-mode = dark | light,
+   both set on <html> by public/theme.js ("system" is resolved there). Every palette block
+   sets every color token, so nothing leaks between them. Contrast checked to WCAG AA except
+   the original default-dark accent (kept as it was). Mirrors api/Data/Themes.cs. */
+:root {
+  --bg: #0f1117;
+  --surface: #181b24;
+  --surface-2: #222634;
+  --border: #2c3142;
+  --text: #e6e8ef;
+  --text-muted: #9097a8;
+  --accent: #7c6cf2;
+  --accent-hover: #9083f5;
+  --accent-text: #fff;
+  --danger: #f2555a;
+  --ok: #6ddb8a;
+  --shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  --radius: 10px;
+  --radius-sm: 6px;
+
+  font: 15px/1.5 system-ui, sans-serif;
+  accent-color: var(--accent); /* native radios/checkboxes follow the palette */
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+}
+
+:root[data-mode='light'] {
+  --bg: #f5f6fa;
+  --surface: #fff;
+  --surface-2: #eef0f6;
+  --border: #dcdfe8;
+  --text: #1b1e27;
+  --text-muted: #636a7c;
+  --accent: #5b4be0;
+  --accent-hover: #4a3bcc;
+  --accent-text: #fff;
+  --danger: #d1343a;
+  --ok: #1f7a3f;
+  --shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  color-scheme: light;
+}
+
+:root[data-theme='crimson'] {
+  --bg: #130d0f;
+  --surface: #1d1417;
+  --surface-2: #291c20;
+  --border: #3a272c;
+  --text: #f0e6e8;
+  --text-muted: #ab979c;
+  --accent: #ef5b72;
+  --accent-hover: #f47a8d;
+  --accent-text: #1a0a0e;
+  --danger: #ff9f43; /* amber: a red "danger" would read as the accent here */
+  --ok: #6ddb8a;
+  --shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  color-scheme: dark;
+}
+
+:root[data-theme='crimson'][data-mode='light'] {
+  --bg: #fbf6f7;
+  --surface: #fff;
+  --surface-2: #f5eaed;
+  --border: #e8d5da;
+  --text: #261b1e;
+  --text-muted: #6e5a60;
+  --accent: #b8233b;
+  --accent-hover: #9c1c31;
+  --accent-text: #fff;
+  --danger: #b35c00;
+  --ok: #1f7a3f;
+  --shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  color-scheme: light;
+}
+
+:root[data-theme='slate'] {
+  --bg: #0d1218;
+  --surface: #141b24;
+  --surface-2: #1c2531;
+  --border: #283444;
+  --text: #e3e9f0;
+  --text-muted: #8f9cad;
+  --accent: #5aa9ff;
+  --accent-hover: #7cbbff;
+  --accent-text: #08121e;
+  --danger: #f2555a;
+  --ok: #6ddb8a;
+  --shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  color-scheme: dark;
+}
+
+:root[data-theme='slate'][data-mode='light'] {
+  --bg: #f3f7fb;
+  --surface: #fff;
+  --surface-2: #e7eef6;
+  --border: #d2dce8;
+  --text: #16202b;
+  --text-muted: #586677;
+  --accent: #1d63c2;
+  --accent-hover: #1852a3;
+  --accent-text: #fff;
+  --danger: #d1343a;
+  --ok: #1f7a3f;
+  --shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  overflow-x: clip; /* full-bleed banners use 100vw, which includes the scrollbar */
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.8rem;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+button.primary,
+button[type='submit'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+button.primary:hover:not(:disabled),
+button[type='submit']:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+button.link-button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  padding: 0.4rem 0;
+}
+
+button.danger,
+button.link-button.danger {
+  color: var(--danger);
+}
+
+input,
+select,
+textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.6rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+[role='alert'] {
+  color: var(--danger);
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.empty p {
+  margin: 0 0 0.5rem;
+}
+
+/* Cover grid (My list, Catalog) */
+
+.cover-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.cover {
+  position: relative;
+  display: block;
+  aspect-ratio: 2 / 3;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.cover:hover img {
+  transform: scale(1.04);
+}
+
+.cover-fallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 1rem;
+  color: var(--text-muted);
+}
+
+.badge {
+  position: absolute;
+  left: 0.4rem;
+  bottom: 0.4rem;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  background: rgb(0 0 0 / 0.75);
+  color: #fff;
+}
+
+/* Per-source ▶ buttons, grouped by language (AnimeDetail, EntryDialog, AnimeWatch) */
+
+.source-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.source-language-group {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.source-language-group summary {
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.source-language-group .source-buttons {
+  margin-top: 0.5rem;
+}
+
+/* Top bar */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.topbar nav {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.topbar-search {
+  margin-left: auto;
+  flex: 0 1 18rem;
+  min-width: 0;
+}
+
+.topbar-search input {
+  width: 100%;
+  border-radius: 999px;
+  padding-inline: 0.9rem;
+}
+
+.topbar nav a {
+  color: var(--text-muted);
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-sm);
+}
+
+.topbar nav a:hover,
+.topbar nav a.active {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* Avatar menu (native <details>) */
+
+.menu {
+  position: relative;
+}
+
+.menu summary {
+  list-style: none;
+  cursor: pointer;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu summary img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.menu-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  min-width: 12rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-panel .menu-name {
+  padding: 0.4rem 0.6rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.menu-panel a,
+.menu-panel button {
+  text-align: left;
+  color: var(--text);
+  background: none;
+  border: none;
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+
+.menu-panel a:hover,
+.menu-panel button:hover {
+  background: var(--surface-2);
+}
+
+/* Auth pages */
+
+.auth-card {
+  max-width: 380px;
+  margin: 4rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.auth-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.auth-card button[type='submit'] {
+  padding: 0.6rem;
+}
+
+.auth-card p {
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .topbar-inner {
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  /* search drops to its own full-width row under the nav */
+  .topbar-search {
+    order: 3;
+    flex: 1 0 100%;
+    margin-left: 0;
+  }
+
+  .menu {
+    margin-left: auto;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .topbar nav a {
+    padding-inline: 0.45rem;
+  }
+
+  .cover-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.6rem;
+  }
+}
