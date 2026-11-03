@@ -10,9 +10,7 @@ and an embedded watch page from those templates. Think of it the way an emulator
 with games: the tool is legal and content-free, and you point it at whatever you own the
 right to use.
 
-[Live example](https://froymain.tail144dc9.ts.net/)
-
-## Screenshots
+## Screenshots of an Example
 
 Home, with continue-watching and trending:
 
