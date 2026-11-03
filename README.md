@@ -1,62 +1,58 @@
 # AniTether
 
-A self-hosted anime tracker (like MyAnimeList) that links out to streaming sites you
-configure yourself. You keep a list of the anime you watch — status, episode progress,
-score and notes — and from any entry jump straight to the next episode on a site, or watch
-it inside AniTether's own embedded player page.
+**Track the anime you watch. Open it on a site you choose.** AniTether is a self-hosted anime list and catalog with episode progress, imports, and optional links to your own streaming sources.
 
-AniTether **ships with no sources**. The "streaming sites" are URL templates an admin adds
-in the admin UI (name, base URL, search/episode/embed patterns). The app then builds
-▶ buttons and an embedded watch page from those templates. Think of it the way an emulator
-doesn't come with games: the tool is legal and content-free, you point it at whatever you
-own the right to use.
+[Open the live example](https://froymain.tail144dc9.ts.net/)
 
-It never stores, proxies, re-streams or hosts video. It stores your list, your progress and
-links; the video always plays on the external site.
+> AniTether starts with no streaming sources and includes no video. An administrator adds URL templates in the admin UI: a site name, base URL, and search, episode, or embed patterns. AniTether uses those templates to build ▶ links and an embedded watch page. Like an emulator without bundled games, AniTether is a content-free tool: add only sites and material you have the right to use.
+>
+> AniTether stores your list, progress, and links. It does not fetch, host, proxy, or re-stream video; playback comes from the site you open.
 
-## Features
+## Screenshots
 
-- **Your list** — Watching, Completed, Plan to watch, On hold, Dropped, Rewatching; episode
-  progress, 0–10 score and notes.
-- **Catalog** — search and browse all of AniList by genre, year, season, format and airing
-  status; genre tiles with cover art.
-- **Import** — pull in an existing list from AniList or a MyAnimeList XML export.
-- **Sources** — admin-managed URL templates for any site. ▶ buttons, per-anime link saving,
-  and an embedded watch page (`<iframe>` to the source's own player).
-- **Plex** (optional) — later-phase scrobbling, per-user token.
-- **Shareable profiles** — opt-in read-only list pages by link; no public signup.
-- **Themes** — three colorways, each in dark/light/"match system".
-- **Invite-only accounts** — Admins and Managers create users; there is no public signup.
+Screenshots from the live instance:
 
-## How sources work
+![Home page with continue-watching and trending anime](docs/images/home.jpg)
 
-A *source* is one row in the database describing how to build URLs for a site:
+![Catalog with anime cards and filters](docs/images/catalog.jpg)
 
-- `base_url` — the site's home, e.g. `https://example.com`.
-- `search_url_template` — its search page with `{title}`.
-- `episode_url_template` — an episode page with `{episode}` plus `{anilist_id}`, `{mal_id}`
-  or `{slug}`.
-- `embed_url_template` (optional) — an embed-only player URL, framed by the watch page.
-- `language`, `sandboxed`, `allow_page_embed`, `enabled`.
+![Anime list with status and episode progress](docs/images/my-list.jpg)
 
-Nothing is bundled. An admin adds sources through **Sources (admin)**; per-anime links (for
-`{slug}` sites) are found by searching the site or pasted in manually. See the
-[admin guide](docs/admin-guide.md#streaming-sources).
+## What you can do
+
+- Track status, episode progress, score, and notes for each anime.
+- Browse and search the AniList catalog by genre, year, season, format, and airing status.
+- Import a list from AniList or a MyAnimeList XML export.
+- Add administrator-managed source templates and save per-anime links.
+- Share an opt-in, read-only profile by link; accounts are invite-only.
+- Choose from three themes, each with dark, light, or system color mode.
+- Optionally connect Plex for scrobbling (later-phase feature).
+
+## Streaming sources
+
+A source is a template configured by an administrator under **Sources (admin)**:
+
+- **Base URL** — the site's home, such as `https://example.com`.
+- **Search pattern** — a URL with `{title}`.
+- **Episode pattern** — a URL with `{episode}` and an identifier such as `{anilist_id}`, `{mal_id}`, or `{slug}`.
+- **Embed pattern** (optional) — an embed URL for the watch page.
+
+Sources are not bundled. For sites that need an anime-specific slug, add a link by searching the site or pasting its URL. See the [admin guide](docs/admin-guide.md#streaming-sources).
 
 ## Documentation
 
 | I want to… | Read |
 |---|---|
-| Use the site | [User guide](docs/user-guide.md) |
+| Use AniTether | [User guide](docs/user-guide.md) |
 | Manage users and sources | [Admin guide](docs/admin-guide.md) |
 | Run it on my own server | [Self-hosting guide](docs/self-hosting.md) |
-| Keep it running: backups, updates | [Maintenance](docs/maintenance.md) |
-| Fix something that isn't working | [Troubleshooting](docs/troubleshooting.md) |
+| Maintain, back up, and update it | [Maintenance](docs/maintenance.md) |
+| Troubleshoot a problem | [Troubleshooting](docs/troubleshooting.md) |
 | Work on the code | [Development guide](docs/development.md) |
 
 ## Quick start (development)
 
-Needs Docker, the .NET 10 SDK and Node.js 20+.
+Needs Docker, the .NET 10 SDK, and Node.js 20+.
 
 ```bash
 docker compose up -d db
@@ -69,21 +65,12 @@ ConnectionStrings__Default='Host=localhost;Port=5432;Database=anitether;Username
 npm --prefix web run dev            # site on http://localhost:5173
 ```
 
-Log in at <http://localhost:5173> with the email and password you set above. Details in the
-[development guide](docs/development.md).
+Log in at <http://localhost:5173> with the email and password you set above. More detail is in the [development guide](docs/development.md).
 
 ## Self-hosting
 
-Production installs run as a Docker Compose stack (PostgreSQL, one-shot migrator, the API,
-a daily backup, optional Cloudflare Tunnel). See
-[docs/self-hosting.md](docs/self-hosting.md).
-
-## Legal note
-
-AniTether is a tracker and a URL launcher. It ships with no sources and stores links and
-progress only — it never fetches, hosts or streams media. You are responsible for the sites
-you add and for complying with their terms of service and your local law.
+Production installs run as a Docker Compose stack with PostgreSQL, a one-shot migrator, the API, a daily backup, and an optional Cloudflare Tunnel. See [docs/self-hosting.md](docs/self-hosting.md).
 
 ## License
 
-[GPLv3](LICENSE) — free to use, modify and redistribute under the same terms.
+[GPLv3](LICENSE) — free to use, modify, and redistribute under the same terms.
